@@ -6,7 +6,7 @@ function Data() {
 
     useEffect(() => {
         const fetchDataFromAPI = async () => {
-            const url = 'https://codeforces.com/api/problemset.problems';
+            const url = 'https://codeforces.com/api/contest.ratingChanges?contestId=566';
             const responseData = await ApiService(url);
             setData(responseData);
             console.log(responseData);
