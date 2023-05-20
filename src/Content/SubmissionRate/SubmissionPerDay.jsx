@@ -1,48 +1,44 @@
 import React, { useEffect, useState } from 'react';
 import { ApiService } from '../../API/ApiService';
 
-function SubmissionPerDay({ handle }) {
-    const [submission, setSubmission] = useState({});
+function SubmissionPerDay({ handle, fromDate, toDate }) {
+    const [submissionCount, setSubmissionCount] = useState(null);
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchSubmissions = async () => {
+            const url = `https://codeforces.com/api/user.status?handle=${handle}&from=${fromDate}&to=${toDate}`;
 
-            const ratingUrl = `https://codeforces.com/api/user.rating?handle=${handle}`;
-            const data = await ApiService(ratingUrl);
-
-            if (data && data.status === 'OK') {
-                const submissions = data.result;
-                const submissionsPerDay = {};
-
-                // Group submissions by day
-                submissions.forEach((submission) => {
-                    const submissionTime = new Date(submission.creationTimeSeconds * 1000);
-                    const submissionDate = submissionTime.toDateString();
-
-                    if (submissionsPerDay.hasOwnProperty(submissionDate)) {
-                        submissionsPerDay[submissionDate].push(submission);
-                    } else {
-                        submissionsPerDay[submissionDate] = [submission];
-                    }
-                });
-
-                setSubmission(submissionsPerDay)
-
-            } else {
-                setSubmission({});
+            try {
+                const response = await ApiService(url);
+                if (response && response.status === 'OK') {
+                    const submissions = response.result;
+                    const count = submissions.length;
+                    setSubmissionCount(count);
+                }
+                else {
+                    console.log('Error: Failed to retrieve submissions');
+                }
+            } catch (error) {
+                console.error('Error:', error);
             }
         };
 
-        fetchData();
-    }, [handle]);
-
-    console.log(submission);
+        fetchSubmissions();
+    }, [handle, fromDate, toDate]);
 
     return (
         <div>
-            Rona Mat
+            {submissionCount !== null ? (
+                <p>
+                    Number of submissions on Codeforces for user {handle} on the specified day: {submissionCount}
+                </p>
+            ) : (
+                <p>Loading...</p>
+            )}
         </div>
     );
-}
+};
 
 export default SubmissionPerDay;
+
+
