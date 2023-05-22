@@ -1,0 +1,116 @@
+import React, { useEffect, useState } from 'react';
+import { ApiService } from '../../API/ApiService';
+
+const TypeOfProblemsSolved = ({ userHandle }) => {
+    const [solvedProblems, setSolvedProblems] = useState([]);
+    const [solvedCategories, setSolvedCategories] = useState({});
+    const [solvedRatings, setSolvedRatings] = useState({});
+    const [solvedTags, setSolvedTags] = useState({});
+
+    useEffect(() => {
+        const fetchUserSolvedProblems = async () => {
+            try {
+                const url = `https://codeforces.com/api/user.status?handle=${userHandle}`;
+                const data = await ApiService(url);
+
+                if (data && data.status === 'OK') {
+                    const submissions = data.result;
+                    const solvedProblemsSet = new Set();
+                    const solvedCategoriesCount = {};
+                    const solvedRatingsCount = {};
+                    const solvedTagsCount = {};
+
+                    submissions.forEach((submission) => {
+                        if (submission.verdict === 'OK') {
+                            const problem = submission.problem;
+                            const problemIndex = problem.index;
+                            const problemCategory = problem.index.charAt(0);
+                            const problemRating = problem.rating;
+                            const problemTags = problem.tags;
+
+                            solvedProblemsSet.add(problemIndex);
+
+                            if (problemCategory in solvedCategoriesCount) {
+                                solvedCategoriesCount[problemCategory]++;
+                            } else {
+                                solvedCategoriesCount[problemCategory] = 1;
+                            }
+
+                            if (problemRating in solvedRatingsCount) {
+                                solvedRatingsCount[problemRating]++;
+                            } else {
+                                solvedRatingsCount[problemRating] = 1;
+                            }
+
+                            problemTags.forEach((tag) => {
+                                if (tag in solvedTagsCount) {
+                                    solvedTagsCount[tag]++;
+                                } else {
+                                    solvedTagsCount[tag] = 1;
+                                }
+                            });
+                        }
+                    });
+
+                    setSolvedProblems(Array.from(solvedProblemsSet));
+                    setSolvedCategories(solvedCategoriesCount);
+                    setSolvedRatings(solvedRatingsCount);
+                    setSolvedTags(solvedTagsCount);
+                } else {
+                    console.log('Error: Unable to fetch user submissions');
+                }
+            } catch (error) {
+                console.log('Error:', error.message);
+            }
+        };
+
+        fetchUserSolvedProblems();
+    }, [userHandle]);
+
+    return (
+        <div>
+            <h1>Solved Problems</h1>
+            {solvedProblems.length > 0 ? (
+                <div>
+                    <h2>Problem Indices:</h2>
+                    <ul>
+                        {solvedProblems.map((problemIndex) => (
+                            <li key={problemIndex}>{problemIndex}</li>
+                        ))}
+                    </ul>
+                    <h2>Category Counts:</h2>
+                    <ul>
+                        {Object.entries(solvedCategories).map(([category, count]) => (
+                            <li key={category}>
+                                Category {category}: {count} problem(s)
+                            </li>
+                        ))}
+                    </ul>
+                    <h2>Rating Counts:</h2>
+                    <ul>
+                        {Object.entries(solvedRatings).map(([rating, count]) => (
+                            <li key={rating}>
+                                Rating {rating}: {count} problem(s)
+                            </li>
+                        ))}
+                    </ul>
+                    <h2>Tag Counts:</h2>
+                    <ul>
+                        {Object.entries(solvedTags).map(([tag, count]) => (
+                            <li key={tag}>
+                                Tag {tag}: {count} problem(s)
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            ) : (
+                <p>No solved problems found.</p>
+            )}
+        </div>
+    );
+};
+
+
+
+
+export default TypeOfProblemsSolved;
