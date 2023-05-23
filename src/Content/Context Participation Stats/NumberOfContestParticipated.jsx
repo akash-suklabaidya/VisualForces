@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ApiService } from '../../API/ApiService';
+import SearchContext from '../../Context/SearchContext';
+
+// import Search from '../../Search/Search';
 
 function NumberOfContestParticipated({ handle }) {
     const [contestCount, setContestCount] = useState(null);
-
     useEffect(() => {
         const fetchData = async () => {
             const ratingUrl = `https://codeforces.com/api/user.rating?handle=${handle}`;
