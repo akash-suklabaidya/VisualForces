@@ -1,14 +1,18 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ApiService } from '../../API/ApiService';
 import SearchContext from '../../Context/SearchContext';
 
-// import Search from '../../Search/Search';
 
-function NumberOfContestParticipated({ handle }) {
+
+function NumberOfContestParticipated() {
+
+    const { searchValue } = useContext(SearchContext);
+    console.log(searchValue);
     const [contestCount, setContestCount] = useState(null);
+
     useEffect(() => {
         const fetchData = async () => {
-            const ratingUrl = `https://codeforces.com/api/user.rating?handle=${handle}`;
+            const ratingUrl = `https://codeforces.com/api/user.rating?handle=${searchValue}`;
             const ratingData = await ApiService(ratingUrl);
 
             if (ratingData && ratingData.status === 'OK') {
@@ -19,12 +23,12 @@ function NumberOfContestParticipated({ handle }) {
         };
 
         fetchData();
-    }, [handle]);
+    }, [searchValue]);
 
     return (
         <div>
             {contestCount !== null ? (
-                <p>Number of contests participated by {handle}: {contestCount}</p>
+                <p>Number of contests participated by {searchValue}: {contestCount}</p>
             ) : (
                 <p>Loading...</p>
             )}

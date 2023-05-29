@@ -1,37 +1,44 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ApiService } from '../../API/ApiService';
+import SearchContext from '../../Context/SearchContext';
 
-function PosAndNegRatPerCon({ handle }) {
-    const [inArray, setInArray] = useState([]);
+function PosAndNegRatPerCon() {
+    const { searchValue } = useContext(SearchContext);
+
+    const [ratingChanges, setRatingChanges] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
+            try {
+                const ratingUrl = `https://codeforces.com/api/user.rating?handle=${searchValue}`;
+                const ratingData = await ApiService(ratingUrl);
 
-            const ratingUrl = `https://codeforces.com/api/user.rating?handle=${handle}`;
-            const ratingData = await ApiService(ratingUrl);
-            const ratingArray = [];
-
-            if (ratingData && ratingData.status === 'OK') {
-                for (let i = 0; i < ratingData.result.length; i++) {
-
-                    let temp = ratingData.result[i].newRating - ratingData.result[i].oldRating;
-                    ratingArray.push(temp);
+                if (ratingData && ratingData.status === 'OK') {
+                    setRatingChanges(ratingData.result);
+                } else {
+                    setRatingChanges([]);
                 }
-                setInArray(ratingArray);
-            }
-            else {
-                setInArray([]);
+            } catch (error) {
+                console.error(error);
+                setRatingChanges([]);
             }
         };
 
         fetchData();
-    }, []);
+    }, [searchValue]);
 
-    console.log(inArray);
+    console.log(ratingChanges);
 
     return (
         <div>
-            Hoga Bhai
+            {
+                ratingChanges.map((change, index) => (
+                    <div key={index}>
+                        <p>Contest Name: {change.contestName}</p>
+                        <p>Rating Change: {change.newRating - change.oldRating}</p>
+                    </div>
+                ))
+            }
         </div>
     );
 }

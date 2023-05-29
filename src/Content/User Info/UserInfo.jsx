@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ApiService } from '../../API/ApiService';
+import SearchContext from '../../Context/SearchContext';
 
-function UserInfo({ handle }) {
+function UserInfo() {
+    const { searchValue } = useContext(SearchContext);
     const [userInfo, setUserInfo] = useState({});
     useEffect(() => {
         const fetchData = async () => {
 
-            const userURL = `https://codeforces.com/api/user.info?handles=${handle}`;
+            const userURL = `https://codeforces.com/api/user.info?searchValues=${searchValue}`;
             const userData = await ApiService(userURL);
 
             if (userData && userData.status === 'OK') {
                 const Info = {};
-                Info.handle = userData.result[0].handle;
+                Info.searchValue = userData.result[0].searchValue;
                 Info.rank = userData.result[0].rank;
                 Info.rating = userData.result[0].rating;
                 Info.maxRank = userData.result[0].maxRank;

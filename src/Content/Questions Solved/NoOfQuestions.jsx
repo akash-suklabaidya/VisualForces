@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ApiService } from '../../API/ApiService';
+import SearchContext from '../../Context/SearchContext';
 
 function NoOfQuestions({ userHandle }) {
+
+    const { searchValue } = useContext(SearchContext);
     const [solvedProblems, setSolvedProblems] = useState([]);
 
 
     useEffect(() => {
         const fetchUserSolvedProblems = async () => {
             try {
-                const url = `https://codeforces.com/api/user.status?handle=${userHandle}`;
+                const url = `https://codeforces.com/api/user.status?handle=${searchValue}`;
                 const data = await ApiService(url);
 
                 if (data && data.status === 'OK') {
@@ -34,7 +37,7 @@ function NoOfQuestions({ userHandle }) {
         };
 
         fetchUserSolvedProblems();
-    }, [userHandle]);
+    }, [searchValue]);
 
     return (
         <div>

@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import SearchContext from './Context/SearchContext';
+import { SearchProvider } from './Context/SearchContext';
 
 ReactDOM.render(
-  <App />
+  <StrictMode>
+    <SearchProvider>
+      <App />
+    </SearchProvider>
+  </StrictMode>
   , document.getElementById('root')
 );

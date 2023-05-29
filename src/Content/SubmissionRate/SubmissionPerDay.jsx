@@ -1,12 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { ApiService } from '../../API/ApiService';
+import SearchContext from '../../Context/SearchContext';
 
-function SubmissionPerDay({ handle, fromDate, toDate }) {
+function SubmissionPerDay({ fromDate, toDate }) {
+    const { searchValue } = useContext(SearchContext);
     const [submissionCount, setSubmissionCount] = useState(null);
 
     useEffect(() => {
         const fetchSubmissions = async () => {
-            const url = `https://codeforces.com/api/user.status?handle=${handle}&from=${fromDate}&to=${toDate}`;
+            const url = `https://codeforces.com/api/user.status?searchValue=${searchValue}&from=${fromDate}&to=${toDate}`;
 
             try {
                 const response = await ApiService(url);
@@ -24,13 +26,13 @@ function SubmissionPerDay({ handle, fromDate, toDate }) {
         };
 
         fetchSubmissions();
-    }, [handle, fromDate, toDate]);
+    }, [searchValue, fromDate, toDate]);
 
     return (
         <div>
             {submissionCount !== null ? (
                 <p>
-                    Number of submissions on Codeforces for user {handle} on the specified day: {submissionCount}
+                    Number of submissions on Codeforces for user {searchValue} on the specified day: {submissionCount}
                 </p>
             ) : (
                 <p>Loading...</p>
