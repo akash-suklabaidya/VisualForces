@@ -7,6 +7,7 @@ import NoOfQuestions from './Content/Questions Solved/NoOfQuestions';
 import TypeOfProblemsSolved from './Content/Questions Solved/TypeOfProblemsSolved';
 import UserInfo from './Content/User Info/UserInfo';
 import Search from './Search/Search';
+import UserProfile from './Content/UserProfile/UserProfile';
 import ExportAll from './Charts/ExportAll';
 
 
@@ -16,16 +17,15 @@ function App() {
   return (
     <div>
       <Search />
-      {/* <NumberOfContestParticipated /> */}
-      {/* <MaxRatingIncrAndDec /> */}
-      {/* <PosAndNegRatPerCon /> */}
-      {/* <SubmissionPerDay />
+      <UserProfile />
+      {/* <NumberOfContestParticipated />
+      <MaxRatingIncrAndDec />
+      <PosAndNegRatPerCon />
+      <SubmissionPerDay />
       <NoOfQuestions />
       <TypeOfProblemsSolved />
       <UserInfo /> */}
-      <ExportAll />
-
-
+      {/* <ExportAll /> */}
     </div >
   )
 }

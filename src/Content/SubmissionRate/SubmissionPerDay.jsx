@@ -1,23 +1,24 @@
+
+
 import React, { useEffect, useState, useContext } from 'react';
 import { ApiService } from '../../API/ApiService';
 import SearchContext from '../../Context/SearchContext';
 
-function SubmissionPerDay({ fromDate, toDate }) {
+function SubmissionPerDay() {
     const { searchValue } = useContext(SearchContext);
-    const [submissionCount, setSubmissionCount] = useState(null);
+    const [submissionCounts, setSubmissionCounts] = useState([]);
 
     useEffect(() => {
         const fetchSubmissions = async () => {
-            const url = `https://codeforces.com/api/user.status?searchValue=${searchValue}&from=${fromDate}&to=${toDate}`;
+            const url = `https://codeforces.com/api/user.status?handle=${searchValue}`;
 
             try {
                 const response = await ApiService(url);
                 if (response && response.status === 'OK') {
                     const submissions = response.result;
-                    const count = submissions.length;
-                    setSubmissionCount(count);
-                }
-                else {
+                    const submissionCountsPerDay = countSubmissionsPerDay(submissions);
+                    setSubmissionCounts(submissionCountsPerDay);
+                } else {
                     console.log('Error: Failed to retrieve submissions');
                 }
             } catch (error) {
@@ -26,21 +27,35 @@ function SubmissionPerDay({ fromDate, toDate }) {
         };
 
         fetchSubmissions();
-    }, [searchValue, fromDate, toDate]);
+    }, [searchValue]);
+
+    // Function to count submissions per day
+    const countSubmissionsPerDay = (submissions) => {
+        const counts = {};
+
+        // Iterate over each submission
+        for (let i = 0; i < submissions.length; i++) {
+            const submission = submissions[i];
+            const submissionDate = new Date(submission.creationTimeSeconds * 1000);
+            const submissionDay = submissionDate.toDateString();
+
+            // Increment the count for the submission day
+            counts[submissionDay] = (counts[submissionDay] || 0) + 1;
+        }
+
+        return counts;
+    };
 
     return (
         <div>
-            {submissionCount !== null ? (
-                <p>
-                    Number of submissions on Codeforces for user {searchValue} on the specified day: {submissionCount}
+            <h1>Submission Counts per Day</h1>
+            {Object.keys(submissionCounts).map((day) => (
+                <p key={day}>
+                    {day}: {submissionCounts[day]}
                 </p>
-            ) : (
-                <p>Loading...</p>
-            )}
+            ))}
         </div>
     );
-};
+}
 
 export default SubmissionPerDay;
-
-
