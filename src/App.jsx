@@ -9,6 +9,8 @@ import UserInfo from './Content/User Info/UserInfo';
 import Search from './Search/Search';
 import UserProfile from './Content/UserProfile/UserProfile';
 import ExportAll from './Charts/ExportAll';
+import ContentContext from './Context/ContentContext';
+import ContentProvider from './Context/ContentContext';
 
 
 function App() {
@@ -17,7 +19,9 @@ function App() {
   return (
     <div>
       <Search />
-      <UserProfile />
+      {/* <ContentContext /> */}
+      {/* <UserProfile /> */}
+      {/* <UserInfo /> */}
       {/* <NumberOfContestParticipated />
       <MaxRatingIncrAndDec />
       <PosAndNegRatPerCon />
@@ -25,7 +29,7 @@ function App() {
       <NoOfQuestions />
       <TypeOfProblemsSolved />
       <UserInfo /> */}
-      {/* <ExportAll /> */}
+      <ExportAll />
     </div >
   )
 }

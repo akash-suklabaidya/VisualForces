@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ResponsiveContainer, LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend } from 'recharts';
 import { Stack } from '@mui/material';
+import { ContentContext } from '../Context/ContentContext';
 
 function Chart() {
+    const { getUserInfo } = useContext(ContentContext);
+    console.log(getUserInfo);
     const data = [
         { name: 'Jan', value: 100 },
         { name: 'Feb', value: 200 },
@@ -48,4 +51,4 @@ function Chart() {
     );
 }
 
-export default Chart;
+export default React.memo(Chart);
