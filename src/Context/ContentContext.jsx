@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
-// import { fetchUserInfoData } from '../Content/UserInfo';
 import { fetchUserInfoData } from '../Content/User Info/UserInfo';
 import SearchContext from './SearchContext';
 
@@ -20,12 +19,16 @@ const ContentProvider = ({ children }) => {
         }
     };
 
+
     useEffect(() => {
         fetchUserInfo();
     }, [searchValue]);
 
     return (
-        <ContentContext.Provider value={{ getUserInfo: pageData, setPageData }}>
+        <ContentContext.Provider value={{
+            getUserInfo: pageData,
+            setPageData,
+        }}>
             {children}
         </ContentContext.Provider>
     );
