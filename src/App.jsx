@@ -19,6 +19,7 @@ function App() {
   return (
     <div>
       <Search />
+      <PosAndNegRatPerCon />
       {/* <ContentContext /> */}
       {/* <UserProfile /> */}
       {/* <UserInfo /> */}

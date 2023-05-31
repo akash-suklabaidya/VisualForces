@@ -72,7 +72,6 @@ function NumberOfContestParticipated() {
 
     const { searchValue } = useContext(SearchContext);
     console.log(searchValue);
-    const [contestCount, setContestCount] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {

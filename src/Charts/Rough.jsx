@@ -4,8 +4,13 @@ import { Stack } from '@mui/material';
 import { ContentContext } from '../Context/ContentContext';
 
 function Chart() {
-    const { getUserInfo } = useContext(ContentContext);
-    console.log(getUserInfo);
+    const { pageData } = useContext(ContentContext);
+    // console.log(pageData.numberOfContests);
+    // console.log(pageData.userInfo);
+    // console.log(pageData.QuestionsCount);
+    // console.log(pageData.Type)
+    // console.log(pageData.MaxIncDec);
+    console.log(pageData.PosAndNeg);
     const data = [
         { name: 'Jan', value: 100 },
         { name: 'Feb', value: 200 },

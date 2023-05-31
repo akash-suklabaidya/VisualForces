@@ -27,22 +27,18 @@ async function fetchUserInfoData(searchValue) {
 
 function UserInfo() {
     const { searchValue } = useContext(SearchContext);
-    const [userInfo, setUserInfo] = useState({});
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchUserInfoData(searchValue);
-            setUserInfo(data);
         };
 
         fetchData();
     }, [searchValue]);
 
-    console.log(userInfo);
 
     return (
         <div>
-            {/* Your JSX component */}
 
         </div>
     );

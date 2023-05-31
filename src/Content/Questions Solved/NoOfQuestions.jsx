@@ -81,7 +81,7 @@ async function fetchNoOfQuestions(searchValue) {
 
             return Array.from(solvedProblemsSet);
         } else {
-            console.log('Error: Unable to fetch user submissions');
+            return {};
         }
     }
     catch (error) {
@@ -92,13 +92,11 @@ async function fetchNoOfQuestions(searchValue) {
 function NoOfQuestions({ userHandle }) {
 
     const { searchValue } = useContext(SearchContext);
-    const [solvedProblems, setSolvedProblems] = useState([]);
 
 
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchNoOfQuestions(searchValue);
-            setSolvedProblems(data);
         };
 
         fetchData();
