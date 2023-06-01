@@ -4,7 +4,8 @@ import { fetchNumberOfContestParticipated } from '../Content/Context Participati
 import { fetchNoOfQuestions } from '../Content/Questions Solved/NoOfQuestions';
 import { fetchTypeOfProblemsSolved } from '../Content/Questions Solved/TypeOfProblemsSolved';
 import { fetchMaxRatIncDec } from '../Content/Rating Distribution Stats/MaxRatingIncrAndDec';
-// import { fetchPosAndNegRatPerCon } from '../Content/Rating Distribution Stats/PosAndNegRatPerCon';
+import { fetchPosAndNegRatPerCon } from '../Content/Rating Distribution Stats/PosAndNegRatPerCon';
+import { fetchSubmissisonRate } from '../Content/SubmissionRate/SubmissionPerDay';
 import SearchContext from './SearchContext';
 
 const ContentContext = createContext();
@@ -62,14 +63,23 @@ const ContentProvider = ({ children }) => {
         }
     }
 
-    // const fetchPosAndNeg = async () => {
-    //     try {
-    //         const PosAndNeg = await fetchPosAndNegRatPerCon(searchValue);
-    //         setPageData((prevPageData) => ({ ...prevPageData, PosAndNeg }));
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // }
+    const fetchPosAndNeg = async () => {
+        try {
+            const PosAndNeg = await fetchPosAndNegRatPerCon(searchValue);
+            setPageData((prevPageData) => ({ ...prevPageData, PosAndNeg }));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const fetchSubRate = async () => {
+        try {
+            const subRate = await fetchSubmissisonRate(searchValue);
+            setPageData((prevPageData) => ({ ...prevPageData, subRate }));
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
         fetchUserInfo();
@@ -77,8 +87,11 @@ const ContentProvider = ({ children }) => {
         fetchQuestionsCount();
         fetchProblemsType();
         fetchIncDec();
-        // fetchPosAndNeg();
+        fetchPosAndNeg();
+        fetchSubRate();
     }, [searchValue]);
+
+
 
     return (
         <ContentContext.Provider value={{
@@ -93,32 +106,3 @@ const ContentProvider = ({ children }) => {
 export default ContentProvider;
 export { ContentContext };
 
-
-// import React, { useEffect, useContext, useState } from 'react';
-// import { fetchUserInfoData } from '../Content/User Info/UserInfo';
-// import SearchContext from './SearchContext';
-
-// function ContentContext() {
-//     const { searchValue } = useContext(SearchContext);
-//     const [data, setData] = useState("");
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             const userInfo = await fetchUserInfoData(searchValue);
-//             // console.log(userInfo);
-//             setData(userInfo);
-//         };
-
-//         // fetchData();
-//     }, [searchValue]);
-//     console.log(data);
-
-
-//     return (
-//         <div>
-//             {/* Your JSX component */}
-//         </div>
-//     );
-// }
-
-// export default ContentContext;
