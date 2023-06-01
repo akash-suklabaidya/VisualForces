@@ -9,12 +9,12 @@ async function fetchUserInfoData(searchValue) {
         const userData = await ApiService(userURL);
         if (userData && userData.status === 'OK') {
             const Info = {};
-            Info.searchValue = userData.result[0].searchValue;
             Info.rank = userData.result[0].rank;
             Info.rating = userData.result[0].rating;
             Info.maxRank = userData.result[0].maxRank;
             Info.maxRating = userData.result[0].maxRating;
             Info.titlePhoto = userData.result[0].titlePhoto;
+            Info.handle = userData.result[0].handle;
             return Info;
         } else {
             return {};

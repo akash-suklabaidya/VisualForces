@@ -19,9 +19,9 @@ function App() {
   return (
     <div>
       <Search />
-      <PosAndNegRatPerCon />
+      {/* <PosAndNegRatPerCon /> */}
       {/* <ContentContext /> */}
-      {/* <UserProfile /> */}
+      <UserProfile />
       {/* <UserInfo /> */}
       {/* <NumberOfContestParticipated />
       <MaxRatingIncrAndDec />
@@ -30,7 +30,7 @@ function App() {
       <NoOfQuestions />
       <TypeOfProblemsSolved />
       <UserInfo /> */}
-      <ExportAll />
+      {/* <ExportAll /> */}
     </div >
   )
 }
