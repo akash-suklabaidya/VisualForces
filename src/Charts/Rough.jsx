@@ -5,7 +5,7 @@ import { ContentContext } from '../Context/ContentContext';
 
 function Chart() {
     const { pageData } = useContext(ContentContext);
-    console.log(pageData.numberOfContests);
+    // console.log(pageData.numberOfContests);
     // console.log(pageData.userInfo);
     // console.log(pageData.QuestionsCount);
     // console.log(pageData.Type)

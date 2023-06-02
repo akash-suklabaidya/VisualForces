@@ -11,6 +11,7 @@ import UserProfile from './Content/UserProfile/UserProfile';
 import ExportAll from './Charts/ExportAll';
 import ContentContext from './Context/ContentContext';
 import ContentProvider from './Context/ContentContext';
+import TypeChart from './Charts/TypeChart';
 
 
 function App() {
@@ -21,7 +22,7 @@ function App() {
       <Search />
       {/* <PosAndNegRatPerCon /> */}
       {/* <ContentContext /> */}
-      <UserProfile />
+      {/* <UserProfile /> */}
       {/* <UserInfo /> */}
       {/* <NumberOfContestParticipated />
       <MaxRatingIncrAndDec />
@@ -30,7 +31,8 @@ function App() {
       <NoOfQuestions />
       <TypeOfProblemsSolved />
       <UserInfo /> */}
-      {/* <ExportAll /> */}
+      <ExportAll />
+      {/* <TypeChart /> */}
     </div >
   )
 }
