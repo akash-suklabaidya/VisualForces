@@ -7,37 +7,34 @@ import {
     CartesianGrid,
     Tooltip,
     Legend,
-    ResponsiveContainer, Label
+    ResponsiveContainer,
+    Label
 } from 'recharts';
 import { ContentContext } from '../Context/ContentContext';
 import { Typography } from '@mui/material';
 import SearchContext from '../Context/SearchContext';
 
-const CategoryChart = () => {
+const RatingChart = () => {
     const { searchValue } = useContext(SearchContext);
     const { pageData } = useContext(ContentContext);
     const input = pageData.Type;
-    console.log(input);
 
-    if (!input || !input.solvedCategories) {
+    if (!input || !input.solvedRatings) {
         return null;
     }
 
-    const { solvedCategories } = input;
+    const { solvedRatings } = input;
 
-    const data = Object.entries(solvedCategories)
-        .map(([category, count]) => ({ category, count }))
-        .sort((a, b) => a.category.localeCompare(b.category));
+    const data = Object.entries(solvedRatings)
+        .map(([rating, count]) => ({ rating, count }))
+        .filter((entry) => entry.rating !== 'undefined');
 
     return (
         <div>
-            <Typography variant='h5' align='center'
-                sx={{ fontSize: { xs: '20px', md: '30px' } }}
-            >
-                Level of {searchValue}
+            <Typography variant="h5" align="center" sx={{ fontSize: { xs: '20px', md: '30px' } }}>
+                Rating of {searchValue}
             </Typography>
             <ResponsiveContainer width="100%" height={400}>
-
                 <ComposedChart
                     data={data}
                     margin={{
@@ -48,8 +45,8 @@ const CategoryChart = () => {
                     }}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="category">
-                        <Label value="Level" position="insideBottom" dy={20} />
+                    <XAxis dataKey="rating">
+                        <Label value="Rating" position="insideBottom" dy={20} />
                     </XAxis>
                     <YAxis>
                         <Label value="No. of problems" position="insideLeft" angle={-90} />
@@ -70,11 +67,11 @@ const CategoryChart = () => {
                         }}
                     />
                     <Legend verticalAlign="top" />
-                    <Bar dataKey="count" fill="#8884d8" barSize={30} radius={[10, 10, 0, 0]} />
+                    <Bar dataKey="count" fill="#a996e1" barSize={30} radius={[10, 10, 0, 0]} />
                 </ComposedChart>
             </ResponsiveContainer>
         </div>
     );
 };
 
-export default CategoryChart;
+export default RatingChart;

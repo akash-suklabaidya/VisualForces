@@ -58,3 +58,4 @@ function Chart() {
 }
 
 export default React.memo(Chart);
+
