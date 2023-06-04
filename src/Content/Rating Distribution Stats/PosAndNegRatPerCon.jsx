@@ -51,6 +51,3 @@ function PosAndNegRatPerCon() {
 export { fetchPosAndNegRatPerCon };
 export default PosAndNegRatPerCon;
 
-
-
-

@@ -12,7 +12,8 @@ import ExportAll from './Charts/ExportAll';
 import ContentContext from './Context/ContentContext';
 import ContentProvider from './Context/ContentContext';
 import TypeChart from './Charts/TypeChart';
-
+// import QuestionPerContest from './Content/Context Participation Stats/QuestionPerContest';
+import RatingChangesPerCon from './Content/Context Participation Stats/RatingChangesPerCon';
 
 function App() {
   // const fromDate = Math.floor(Date.UTC(2023, 4, 19, 0, 0, 0) / 1000);
@@ -20,10 +21,13 @@ function App() {
   return (
     <div>
       <Search />
+
+      {/* <QuestionPerContest /> */}
       {/* <PosAndNegRatPerCon /> */}
       {/* <ContentContext /> */}
-      {/* <UserProfile /> */}
+      <UserProfile />
       {/* <UserInfo /> */}
+      <RatingChangesPerCon />
       {/* <NumberOfContestParticipated />
       <MaxRatingIncrAndDec />
       <PosAndNegRatPerCon />

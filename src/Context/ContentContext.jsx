@@ -6,6 +6,7 @@ import { fetchTypeOfProblemsSolved } from '../Content/Questions Solved/TypeOfPro
 import { fetchMaxRatIncDec } from '../Content/Rating Distribution Stats/MaxRatingIncrAndDec';
 import { fetchPosAndNegRatPerCon } from '../Content/Rating Distribution Stats/PosAndNegRatPerCon';
 import { fetchSubmissisonRate } from '../Content/SubmissionRate/SubmissionPerDay';
+import { fetchRatingChanges } from '../Content/Context Participation Stats/RatingChangesPerCon';
 import SearchContext from './SearchContext';
 
 const ContentContext = createContext();
@@ -81,6 +82,15 @@ const ContentProvider = ({ children }) => {
         }
     }
 
+    const fetchRating = async () => {
+        try {
+            const ratChange = await fetchRatingChanges(searchValue);
+            setPageData((prevPageData) => ({ ...prevPageData, ratChange }));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     useEffect(() => {
         fetchUserInfo();
         fetchNuberOfContests();
@@ -89,6 +99,7 @@ const ContentProvider = ({ children }) => {
         fetchIncDec();
         fetchPosAndNeg();
         fetchSubRate();
+        fetchRating();
     }, [searchValue]);
 
 
@@ -105,4 +116,3 @@ const ContentProvider = ({ children }) => {
 
 export default ContentProvider;
 export { ContentContext };
-
