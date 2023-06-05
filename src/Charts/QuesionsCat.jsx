@@ -46,8 +46,7 @@ const COLORS = [
     '#9cd700'
 ];
 
-const TagsChart = () => {
-    const { searchValue } = useContext(SearchContext);
+const TagsChart = ({ userName }) => {
     const { pageData } = useContext(ContentContext);
     const input = pageData.Type;
 

@@ -11,10 +11,8 @@ import {
 } from 'recharts';
 import { ContentContext } from '../Context/ContentContext';
 import { Typography } from '@mui/material';
-import SearchContext from '../Context/SearchContext';
 
-const CategoryChart = () => {
-    const { searchValue } = useContext(SearchContext);
+const CategoryChart = ({ userName }) => {
     const { pageData } = useContext(ContentContext);
     const input = pageData.Type;
     console.log(input);
@@ -34,7 +32,7 @@ const CategoryChart = () => {
             <Typography variant='h5' align='center'
                 sx={{ fontSize: { xs: '20px', md: '30px' } }}
             >
-                Level of {searchValue}
+                Level of {userName}
             </Typography>
             <ResponsiveContainer width="100%" height={400}>
 

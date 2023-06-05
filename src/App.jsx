@@ -27,7 +27,7 @@ function App() {
       {/* <ContentContext /> */}
       <UserProfile />
       {/* <UserInfo /> */}
-      <RatingChangesPerCon />
+      {/* <RatingChangesPerCon /> */}
       {/* <NumberOfContestParticipated />
       <MaxRatingIncrAndDec />
       <PosAndNegRatPerCon />

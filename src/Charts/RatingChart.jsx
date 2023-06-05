@@ -12,10 +12,8 @@ import {
 } from 'recharts';
 import { ContentContext } from '../Context/ContentContext';
 import { Typography } from '@mui/material';
-import SearchContext from '../Context/SearchContext';
 
-const RatingChart = () => {
-    const { searchValue } = useContext(SearchContext);
+const RatingChart = ({ userName }) => {
     const { pageData } = useContext(ContentContext);
     const input = pageData.Type;
 
@@ -32,7 +30,7 @@ const RatingChart = () => {
     return (
         <div>
             <Typography variant="h5" align="center" sx={{ fontSize: { xs: '20px', md: '30px' } }}>
-                Rating of {searchValue}
+                Rating of {userName}
             </Typography>
             <ResponsiveContainer width="100%" height={400}>
                 <ComposedChart
