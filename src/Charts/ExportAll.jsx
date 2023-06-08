@@ -6,17 +6,18 @@ import RatingChart from './RatingChart';
 import QuestionsCat from './QuesionsCat';
 import RatingChanges from './RatingChanges';
 import SubmissionActivity from './SubmissionActivity';
+import QuestionPerConChart from './QuestionPerConChart';
 
 function ExportAll() {
     const { searchValue } = useContext(SearchContext);
     return (
         <div>
+            <QuestionPerConChart />
             {/* <RatingChanges userName={searchValue} />
             <TypeChart userName={searchValue} />
             <RatingChart userName={searchValue} />
             <QuestionsCat userName={searchValue} />
             <SubmissionActivity userName={searchValue} /> */}
-
 
         </div>
 
@@ -24,4 +25,7 @@ function ExportAll() {
 }
 
 export default ExportAll
+
+
+
 

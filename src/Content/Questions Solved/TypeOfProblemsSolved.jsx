@@ -1,6 +1,3 @@
-
-
-
 import React, { useEffect, useState, useContext } from 'react';
 import { ApiService } from '../../API/ApiService';
 import SearchContext from '../../Context/SearchContext';
@@ -88,3 +85,5 @@ function TypeOfProblemsSolved() {
 
 export { fetchTypeOfProblemsSolved };
 export default TypeOfProblemsSolved;
+
+

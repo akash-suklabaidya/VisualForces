@@ -3,17 +3,48 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
-import { ContentContext } from '../../Context/ContentContext';
 import SearchContext from '../../Context/SearchContext';
 
 import { ApiService } from '../../API/ApiService';
 import { useEffect, useState } from 'react';
 
 async function fetchContestStats(handle) {
+    console.log(handle);
     const ratingURL = `https://codeforces.com/api/user.rating?handle=${handle}`;
     const ratingData = await ApiService(ratingURL);
+    console.log(ratingData);
 
     if (ratingData && ratingData.status === 'OK') {
+        const result = ratingData.result;
+        let maxRank = -1e8;
+        let minRank = 1e8;
+        const numberOfContest = ratingData.result.length;
+        for (let i = 0; i < result.length; i++) {
+            let rank = result[i].rank;
+            if (rank > maxRank) {
+                maxRank = rank;
+            }
+            if (rank < minRank) {
+                minRank = rank;
+            }
+        }
+
+        const changes = ratingData.result.reduce((obj, change) => {
+            const ratChange = change.newRating - change.oldRating;
+            return {
+                max: Math.max(obj.max || ratChange, ratChange),
+                min: Math.min(obj.min || ratChange, ratChange),
+            };
+        }, {});
+        const minRatingDown = changes.min;
+        const maxRatingUp = changes.max;
+        return {
+            minRank,
+            maxRank,
+            numberOfContest,
+            minRatingDown,
+            maxRatingUp
+        }
 
     }
 
@@ -51,7 +82,6 @@ async function fetchOverallStats(handle) {
         };
     }
 }
-
 export default function Stats() {
     const { searchValue } = React.useContext(SearchContext);
     const [ratingChanges, setRatingChanges] = useState({});
@@ -59,88 +89,38 @@ export default function Stats() {
     useEffect(() => {
         const fetchData = async () => {
             const overallStats = await fetchOverallStats(searchValue);
-            const contestStats = await fetchContestStats(searchValue);
-            setRatingChanges({ overallStats, contestStats });
+            setRatingChanges((prevRatingChanges) => ({
+                ...prevRatingChanges,
+                overallStats,
+            }));
+
+            setTimeout(async () => {
+                const contestStats = await fetchContestStats(searchValue);
+                setRatingChanges((prevRatingChanges) => ({
+                    ...prevRatingChanges,
+                    contestStats,
+                }));
+            }, 2000); // Delayed execution of 2 seconds
         };
 
         fetchData();
     }, [searchValue]);
 
+    console.log(ratingChanges);
+
+
     return (
-        <Stack display='flex' alignItems='center' justifyContent='center'>
+        <Stack display="flex" alignItems="center" justifyContent="center">
             <Card sx={{ maxWidth: 345 }}>
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
                         XYZ
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        Lizards are a widespread group of squamate reptiles, with over 6,000
-                        species, ranging across all continents except Antarctica
+                        MaxUp :-
                     </Typography>
                 </CardContent>
             </Card>
         </Stack>
     );
 }
-
-// import { ApiService } from '../../API/ApiService';
-
-// async function fetchContestStats(handle, contestId) {
-//     try {
-//         // Fetch user's rating changes
-//         const ratingUrl = `https://codeforces.com/api/user.rating?handle=${handle}`;
-//         const ratingData = await ApiService(ratingUrl);
-
-//         // Calculate max rating up and down
-//         let maxRatingUp = 0;
-//         let maxRatingDown = 0;
-//         if (ratingData && ratingData.status === 'OK') {
-//             ratingData.result.forEach(change => {
-//                 maxRatingUp = Math.max(maxRatingUp, change.newRating - change.oldRating);
-//                 maxRatingDown = Math.min(maxRatingDown, change.newRating - change.oldRating);
-//             });
-//         }
-
-//         // Fetch user's submissions for the contest
-//         const submissionsUrl = `https://codeforces.com/api/contest.status?contestId=${contestId}&handle=${handle}`;
-//         const submissionsData = await ApiService(submissionsUrl);
-
-//         // Calculate total submissions, accepted submissions, and tried questions
-//         let totalSubmissions = 0;
-//         let totalAccepted = 0;
-//         let totalTried = 0;
-//         let bestRank = Infinity;
-//         let worstRank = 0;
-
-//         if (submissionsData && submissionsData.status === 'OK') {
-//             submissionsData.result.forEach(submission => {
-//                 totalSubmissions++;
-//                 if (submission.verdict === 'OK') {
-//                     totalAccepted++;
-//                 }
-//                 if (submission.problem) {
-//                     totalTried++;
-//                 }
-//                 if (submission.rank) {
-//                     bestRank = Math.min(bestRank, submission.rank);
-//                     worstRank = Math.max(worstRank, submission.rank);
-//                 }
-//             });
-//         }
-
-//         return {
-//             maxRatingUp,
-//             maxRatingDown,
-//             bestRank,
-//             worstRank,
-//             totalSubmissions,
-//             totalAccepted,
-//             totalTried,
-//         };
-//     } catch (error) {
-//         console.log(error);
-//         return {};
-//     }
-// }
-
-// export default fetchContestStats;

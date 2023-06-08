@@ -1,12 +1,10 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 import { fetchUserInfoData } from '../Content/User Info/UserInfo';
-import { fetchNumberOfContestParticipated } from '../Content/Context Participation Stats/NumberOfContestParticipated';
-import { fetchNoOfQuestions } from '../Content/Questions Solved/NoOfQuestions';
 import { fetchTypeOfProblemsSolved } from '../Content/Questions Solved/TypeOfProblemsSolved';
 import { fetchMaxRatIncDec } from '../Content/Rating Distribution Stats/MaxRatingIncrAndDec';
 import { fetchPosAndNegRatPerCon } from '../Content/Rating Distribution Stats/PosAndNegRatPerCon';
-import { fetchSubmissisonRate } from '../Content/SubmissionRate/SubmissionPerDay';
 import { fetchRatingChanges } from '../Content/Context Participation Stats/RatingChangesPerCon';
+import { fetchSubmissionActivity } from '../Content/Context Participation Stats/QuestionsSolvedPerContest';
 import SearchContext from './SearchContext';
 
 const ContentContext = createContext();
@@ -16,93 +14,84 @@ const ContentProvider = ({ children }) => {
 
     const [pageData, setPageData] = useState({});
 
+    const delay = 2000; // Delay in milliseconds
+
     const fetchUserInfo = async () => {
         try {
-            const userInfo = await fetchUserInfoData(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, userInfo }));
-            return userInfo;
+            setTimeout(async () => {
+                const userInfo = await fetchUserInfoData(searchValue);
+                setPageData((prevPageData) => ({ ...prevPageData, userInfo }));
+            }, delay);
         } catch (error) {
             console.log(error);
         }
     };
 
-    const fetchNuberOfContests = async () => {
-        try {
-            const numberOfContests = await fetchNumberOfContestParticipated(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, numberOfContests }));
-            return numberOfContests;
-        }
-        catch (error) {
-            console.log(error);
-        }
-    }
-
-    const fetchQuestionsCount = async () => {
-        try {
-            const QuestionsCount = await fetchNoOfQuestions(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, QuestionsCount }));
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     const fetchProblemsType = async () => {
         try {
-            const Type = await fetchTypeOfProblemsSolved(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, Type }));
+            setTimeout(async () => {
+                const Type = await fetchTypeOfProblemsSolved(searchValue);
+                setPageData((prevPageData) => ({ ...prevPageData, Type }));
+            }, delay * 2);
         } catch (error) {
             console.log(error);
+        }
+    };
+
+    const fetchProbPerContest = async () => {
+        try {
+            setTimeout(async () => {
+                const prob = await fetchSubmissionActivity(searchValue);
+                setPageData((prevPageData) => ({ ...prevPageData, prob }));
+            }, delay * 3);
+        } catch (error) {
+            console.log(error)
         }
     }
 
     const fetchIncDec = async () => {
         try {
-            const MaxIncDec = await fetchMaxRatIncDec(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, MaxIncDec }));
+            setTimeout(async () => {
+                const MaxIncDec = await fetchMaxRatIncDec(searchValue);
+                setPageData((prevPageData) => ({ ...prevPageData, MaxIncDec }));
+            }, delay * 4);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     const fetchPosAndNeg = async () => {
         try {
-            const PosAndNeg = await fetchPosAndNegRatPerCon(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, PosAndNeg }));
+            setTimeout(async () => {
+                const PosAndNeg = await fetchPosAndNegRatPerCon(searchValue);
+                setPageData((prevPageData) => ({ ...prevPageData, PosAndNeg }));
+            }, delay * 5);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
-    const fetchSubRate = async () => {
-        try {
-            const subRate = await fetchSubmissisonRate(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, subRate }));
-        } catch (error) {
-            console.log(error);
-        }
-    }
 
     const fetchRating = async () => {
         try {
-            const ratChange = await fetchRatingChanges(searchValue);
-            setPageData((prevPageData) => ({ ...prevPageData, ratChange }));
+            setTimeout(async () => {
+                const ratChange = await fetchRatingChanges(searchValue);
+                setPageData((prevPageData) => ({ ...prevPageData, ratChange }));
+            }, delay * 6);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
         fetchUserInfo();
-        fetchNuberOfContests();
-        fetchQuestionsCount();
         fetchProblemsType();
+        fetchProbPerContest();
         fetchIncDec();
         fetchPosAndNeg();
-        fetchSubRate();
         fetchRating();
     }, [searchValue]);
-
-
 
     return (
         <ContentContext.Provider value={{

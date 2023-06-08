@@ -14,6 +14,7 @@ import ContentProvider from './Context/ContentContext';
 // import QuestionPerContest from './Content/Context Participation Stats/QuestionPerContest';
 import RatingChangesPerCon from './Content/Context Participation Stats/RatingChangesPerCon';
 import Stats from './Content/Stats Page/Stats';
+import QuestionsSolvedPerContest from './Content/Context Participation Stats/QuestionsSolvedPerContest';
 
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
       {/* <PosAndNegRatPerCon /> */}
       {/* <ContentContext /> */}
       {/* <UserProfile /> */}
+      {/* <Stats /> */}
+      {/* <QuestionsSolvedPerContest /> */}
       {/* <UserInfo /> */}
       {/* <RatingChangesPerCon /> */}
       {/* <NumberOfContestParticipated />
@@ -36,11 +39,10 @@ function App() {
       <NoOfQuestions />
       <TypeOfProblemsSolved />
       <UserInfo /> */}
-      {/* <ExportAll /> */}
+      <ExportAll />
       {/* <TypeChart /> */}
 
 
-      <Stats />
 
 
 
