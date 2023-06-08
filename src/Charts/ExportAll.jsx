@@ -9,17 +9,19 @@ import SubmissionActivity from './SubmissionActivity';
 
 function ExportAll() {
     const { searchValue } = useContext(SearchContext);
-    console.log(searchValue);
     return (
         <div>
-            {/* <Rough /> */}
-            <SubmissionActivity userName={searchValue} />
             {/* <RatingChanges userName={searchValue} />
             <TypeChart userName={searchValue} />
             <RatingChart userName={searchValue} />
-            <QuestionsCat userName={searchValue} /> */}
+            <QuestionsCat userName={searchValue} />
+            <SubmissionActivity userName={searchValue} /> */}
+
+
         </div>
+
     )
 }
 
 export default ExportAll
+
