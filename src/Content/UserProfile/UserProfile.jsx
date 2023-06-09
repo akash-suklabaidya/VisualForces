@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions, Stack } from '@mui/material';
 import { ContentContext } from '../../Context/ContentContext';
 
-export default function MultiActionAreaCard() {
+export default function UserProfile() {
     const { pageData } = useContext(ContentContext);
 
     let image = pageData?.userInfo?.titlePhoto;

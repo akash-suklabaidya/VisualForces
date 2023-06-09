@@ -1,74 +1,38 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-import { ApiService } from '../API/ApiService';
+import React, { useContext } from 'react';
+import { ContentContext } from '../Context/ContentContext';
 import SearchContext from '../Context/SearchContext';
-
+import { Typography } from '@mui/material';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 function QuestionPerConChart() {
+    const { pageData } = useContext(ContentContext);
     const { searchValue } = useContext(SearchContext);
-    const [contestData, setContestData] = useState([]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const data = await fetchSubmissionActivity(searchValue);
-            setContestData(data);
-        };
+    const response = pageData.prob;
 
-        fetchData();
-    }, [searchValue]);
+    if (!response || response.length === 0) {
+        return <div>No data available.</div>;
+    }
 
-    const fetchSubmissionActivity = async (userName) => {
-        try {
-            const url = `https://codeforces.com/api/user.status?handle=${userName}&from=1&count=1000`;
-            const data = await ApiService(url);
-            if (data && data.status === 'OK' && data.result) {
-                const contests = {};
-                data.result.forEach((submission) => {
-                    if (submission.verdict === 'OK' && submission.author.participantType === 'CONTESTANT') {
-                        const contestId = submission.contestId;
-                        const contestName = submission.contestName;
-                        if (contests[contestId]) {
-                            contests[contestId].count += 1;
-                        } else {
-                            contests[contestId] = { name: contestName, count: 1 };
-                        }
-                    }
-                });
-                const contestData = Object.values(contests);
-                return contestData;
-            } else {
-                return [];
-            }
-        } catch (error) {
-            console.error(error);
-            return [];
-        }
-    };
-
-    const renderCustomTooltip = ({ payload }) => {
-        if (payload && payload.length) {
-            const { name, count } = payload[0].payload;
-            return (
-                <div className="custom-tooltip">
-                    <p className="label">{`Contest: ${name}`}</p>
-                    <p className="value">{`Questions Solved: ${count}`}</p>
-                </div>
-            );
-        }
-        return null;
-    };
+    const chartData = response.map((item) => ({
+        contestName: item.contestName,
+        count: item.count,
+    }));
 
     return (
-        <div style={{ width: '100%', height: 400 }}>
-            <ResponsiveContainer>
-                <LineChart data={contestData}>
+        <div>
+            <Typography variant="h5" align="center" sx={{ fontSize: { xs: '20px', md: '30px' }, mb: 4 }}>
+                Questions Solved Per Contest by {searchValue}
+            </Typography>
+            <ResponsiveContainer width="100%" height={300}>
+                <BarChart data={chartData}>
                     <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" angle={-45} textAnchor="end" />
-                    <YAxis />
-                    <Tooltip content={renderCustomTooltip} />
-                    <Legend />
-                    <Line type="monotone" dataKey="count" stroke="#8884d8" name="Questions Solved" dot={{ r: 4 }} />
-                </LineChart>
+                    <XAxis dataKey="contestName" tick={{ fontSize: 12 }} />
+                    <YAxis tick={{ fontSize: 12 }} />
+                    <Tooltip contentStyle={{ fontSize: 12 }} />
+                    <Legend wrapperStyle={{ fontSize: 12 }} />
+                    <Bar dataKey="count" fill="#82ca9d" barSize={30} radius={[10, 10, 0, 0]} />
+                </BarChart>
             </ResponsiveContainer>
         </div>
     );

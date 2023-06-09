@@ -4,9 +4,11 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Stack } from '@mui/material';
 import SearchContext from '../../Context/SearchContext';
-
 import { ApiService } from '../../API/ApiService';
 import { useEffect, useState } from 'react';
+import { Grid, Divider } from '@mui/material';
+
+
 
 async function fetchContestStats(handle) {
     console.log(handle);
@@ -36,6 +38,9 @@ async function fetchContestStats(handle) {
                 min: Math.min(obj.min || ratChange, ratChange),
             };
         }, {});
+
+
+
         const minRatingDown = changes.min;
         const maxRatingUp = changes.max;
         return {
@@ -43,7 +48,7 @@ async function fetchContestStats(handle) {
             maxRank,
             numberOfContest,
             minRatingDown,
-            maxRatingUp
+            maxRatingUp,
         }
 
     }
@@ -75,6 +80,7 @@ async function fetchOverallStats(handle) {
         const totalTried = triedProblems.size;
         const totalSolved = correctProblems.size;
 
+
         return {
             totalSubmission,
             totalTried,
@@ -82,6 +88,9 @@ async function fetchOverallStats(handle) {
         };
     }
 }
+
+
+
 export default function Stats() {
     const { searchValue } = React.useContext(SearchContext);
     const [ratingChanges, setRatingChanges] = useState({});
@@ -108,17 +117,125 @@ export default function Stats() {
 
     console.log(ratingChanges);
 
-
     return (
-        <Stack display="flex" alignItems="center" justifyContent="center">
-            <Card sx={{ maxWidth: 345 }}>
+        <Stack display="flex" alignItems="center" justifyContent="center" paddingTop={10}>
+            <Card sx={{ maxWidth: 400, width: '100%' }}>
                 <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                        XYZ
+                    <Typography gutterBottom variant="subtitle1" fontSize={23} fontWeight={30}>
+                        Some numbers of {searchValue}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        MaxUp :-
-                    </Typography>
+                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                        {/* Number Of Contest */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Number Of Contest:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.contestStats?.numberOfContest}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                        {/* Total Submissions */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Total Submissions:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.overallStats?.totalSubmission}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                        {/* Total Questions Tried */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Total Questions Tried:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.overallStats?.totalTried}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                        {/* Total Questions Solved */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Total Questions Solved:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.overallStats?.totalSolved}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                        {/* Max Rating Up */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Max Rating Up:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.contestStats?.maxRatingUp}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                        {/* Max Rating Down */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Max Rating Down:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.contestStats?.minRatingDown}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: '10px' }}>
+                        {/* Best Rank */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Best Rank:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.contestStats?.minRank}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    <Divider />
+                    <Grid container spacing={2} sx={{ marginTop: '10px', marginBottom: '10px' }}>
+                        {/* Worst Rank */}
+                        <Grid item xs={6}>
+                            <Typography variant="body2" color="text.secondary" fontWeight={600} fontSize={14}>
+                                Worst Rank:
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={6} textAlign="right">
+                            <Typography variant="body2" color="text.secondary" fontWeight={600}>
+                                {ratingChanges.contestStats?.maxRank}
+                            </Typography>
+                        </Grid>
+                    </Grid>
+                    {/* Add other content here */}
                 </CardContent>
             </Card>
         </Stack>

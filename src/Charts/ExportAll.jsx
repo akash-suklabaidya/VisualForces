@@ -12,13 +12,12 @@ function ExportAll() {
     const { searchValue } = useContext(SearchContext);
     return (
         <div>
-            <QuestionPerConChart />
-            {/* <RatingChanges userName={searchValue} />
+            {/* <QuestionPerConChart /> */}
+            <RatingChanges userName={searchValue} />
             <TypeChart userName={searchValue} />
             <RatingChart userName={searchValue} />
             <QuestionsCat userName={searchValue} />
-            <SubmissionActivity userName={searchValue} /> */}
-
+            <SubmissionActivity userName={searchValue} />
         </div>
 
     )
