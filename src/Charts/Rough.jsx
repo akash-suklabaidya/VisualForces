@@ -6,13 +6,6 @@ import { Widgets } from '@mui/icons-material';
 
 function Chart() {
     const { pageData } = useContext(ContentContext);
-    // console.log(pageData.numberOfContests);
-    // console.log(pageData.userInfo);
-    // console.log(pageData.QuestionsCount);
-    // console.log(pageData.Type)
-    // console.log(pageData.MaxIncDec);
-    console.log(pageData.PosAndNeg);
-    // console.log(pageData.subRate);
 
     const data = [
         { name: 'Jan', value: 100 },

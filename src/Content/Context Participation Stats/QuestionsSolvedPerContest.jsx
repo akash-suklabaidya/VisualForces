@@ -59,7 +59,6 @@ function QuestionsSolvedPerContest() {
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetchSubmissionActivity(searchValue);
-            console.log(data);
         };
 
         fetchData();

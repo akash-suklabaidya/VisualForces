@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { ApiService } from '../../API/ApiService';
 import SearchContext from '../../Context/SearchContext';
 

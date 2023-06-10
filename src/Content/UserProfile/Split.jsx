@@ -17,3 +17,6 @@ const SplitScreen = () => {
 };
 
 export default SplitScreen;
+
+
+

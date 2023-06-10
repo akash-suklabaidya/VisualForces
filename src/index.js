@@ -5,6 +5,8 @@ import { SearchProvider } from './Context/SearchContext';
 import ContentProvider from './Context/ContentContext';
 import './App.css'
 
+
+
 ReactDOM.render(
   <StrictMode>
     <SearchProvider>
@@ -12,6 +14,6 @@ ReactDOM.render(
         <App />
       </ContentProvider>
     </SearchProvider>
-  </StrictMode>
-  , document.getElementById('root')
+  </StrictMode>,
+  document.getElementById('root')
 );

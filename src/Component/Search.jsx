@@ -1,55 +1,51 @@
-// import React, { useContext, useState } from 'react';
-// import { Box, IconButton, InputBase, Paper } from '@mui/material';
-// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-// import SearchIcon from '@mui/icons-material/Search';
-// // import SearchContext from './SearchContext';
-// import SearchContext from '../Context/SearchContext';
-
-// function Search() {
-//     const { setSearchValue } = useContext(SearchContext);
-//     const [inputValue, setInputValue] = useState('');
-
-//     const handleInputChange = (event) => {
-//         setInputValue(event.target.value);
-//     };
-
-//     const handleSubmit = (event) => {
-//         event.preventDefault();
-//         setSearchValue(inputValue);
-//         setInputValue('');
-//     };
-
-//     return (
-//         <Box display='flex' alignItems='center' justifyContent='center' paddingTop='20px'>
-//             <Paper component="form" sx={{ p: '2px 10px', display: 'flex', width: '50%' }} onSubmit={handleSubmit}>
-//                 <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-//                     <AccountCircleIcon fontSize='large' />
-//                 </IconButton>
-//                 <InputBase
-//                     sx={{ ml: 1, flex: 1 }}
-//                     placeholder="Search User"
-//                     inputProps={{ 'aria-label': 'search user' }}
-//                     value={inputValue}
-//                     onChange={handleInputChange}
-//                 />
-//                 <IconButton type="submit" sx={{ p: '10px' }} aria-label="search" >
-//                     <SearchIcon fontSize='large' />
-//                 </IconButton>
-//             </Paper>
-//         </Box>
-//     );
-// }
-
-// export default Search;
-
-
 import React, { useContext, useState } from 'react';
-import { Box, IconButton, InputBase, Paper } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { Box, IconButton, InputBase, Paper, Popover, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import SearchContext from '../Context/SearchContext';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
-function Search() {
+const AlertMessage = () => {
+    const [anchorEl, setAnchorEl] = useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'info-popover' : undefined;
+
+    return (
+        <div>
+            <IconButton onClick={handleClick} aria-describedby={id}>
+                <InfoOutlinedIcon color='info' />
+            </IconButton>
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'center',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'center',
+                }}
+            >
+                <Box sx={{ p: 2 }}>
+                    <Typography>Please try refreshing the page if the data doesn't appear.</Typography>
+                </Box>
+            </Popover>
+        </div>
+    );
+};
+
+const Search = () => {
     const { setSearchValue } = useContext(SearchContext);
     const [inputValue, setInputValue] = useState('');
 
@@ -76,14 +72,17 @@ function Search() {
                 sx={{
                     p: '2px 10px',
                     display: 'flex',
+                    alignItems: 'center', // Center the content vertically
                     width: '100%',
                     maxWidth: '500px',
-                    margin: '0 auto'
+                    margin: '0 auto',
+                    position: 'relative', // Add relative positioning to the Paper component
                 }}
                 onSubmit={handleSubmit}
             >
                 <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
-                    <AccountCircleIcon fontSize='large' />
+                    {/* <AccountCircleIcon fontSize='large' /> */}
+                    <AlertMessage />
                 </IconButton>
                 <InputBase
                     sx={{ ml: 1, flex: 1 }}
@@ -92,12 +91,12 @@ function Search() {
                     value={inputValue}
                     onChange={handleInputChange}
                 />
-                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search" >
+                <IconButton type="submit" sx={{ p: '10px' }} aria-label="search">
                     <SearchIcon fontSize='large' />
                 </IconButton>
             </Paper>
         </Box>
     );
-}
+};
 
 export default Search;

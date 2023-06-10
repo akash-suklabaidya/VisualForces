@@ -108,59 +108,54 @@ const TagsChart = ({ userName }) => {
 
     data.sort((a, b) => b.count - a.count);
 
-    // Determine the number of data points to show (including "Others")
     const maxDataPoints = 15;
-    const visibleData = data.slice(0, maxDataPoints - 1); // Leave space for "Others"
-    console.log(visibleData);
-    // Calculate the sum of counts for the remaining data points
+    const visibleData = data.slice(0, maxDataPoints - 1);
     const remainingDataCount = data
         .slice(maxDataPoints - 1)
         .reduce((sum, entry) => sum + entry.count, 0);
 
-    // Create the "Others" data point
     const othersDataPoint = {
         tag: 'Others',
         count: remainingDataCount,
     };
 
-    // Add the "Others" data point to the visible data
     visibleData.push(othersDataPoint);
 
     return (
-        <Stack padding={5}>
-            <Typography variant='h5' align='center'
-                sx={{ fontSize: { xs: '20px', md: '30px' } }}
-                color='#565656'
-                fontWeight={400}
-            >
-                Tpoics distribution of {userName}
-            </Typography>
-            <ResponsiveContainer width="100%" height={400}>
-                <PieChart>
-                    <Pie
-                        data={visibleData}
-                        dataKey="count"
-                        nameKey="tag"
-                        label
-                        outerRadius={140}
-                        labelLine={false}
+        <Grid container justifyContent="center" alignItems="center">
+            <Grid item xs={12} sm={10} md={8}>
+                <Stack padding={5}>
+                    <Typography
+                        variant="h5"
+                        align="center"
+                        sx={{ fontSize: { xs: '20px', md: '30px' } }}
+                        color="#565656"
+                        fontWeight={400}
                     >
-                        {visibleData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                        ))}
-                    </Pie>
-                    <Tooltip />
-                    <Legend verticalAlign="bottom" align="center" />
-                </PieChart>
-            </ResponsiveContainer>
-        </Stack>
+                        Tpoics distribution of {userName}
+                    </Typography>
+                    <ResponsiveContainer width="100%" height={400}>
+                        <PieChart>
+                            <Pie
+                                data={visibleData}
+                                dataKey="count"
+                                nameKey="tag"
+                                label
+                                outerRadius={140}
+                                labelLine={false}
+                            >
+                                {visibleData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                                ))}
+                            </Pie>
+                            <Tooltip />
+                            <Legend verticalAlign="bottom" align="center" />
+                        </PieChart>
+                    </ResponsiveContainer>
+                </Stack>
+            </Grid>
+        </Grid>
     );
 };
 
 export default TagsChart;
-
-
-
-
-
-

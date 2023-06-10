@@ -13,7 +13,6 @@ async function fetchRatingChanges(userName) {
                 ratingChange: contest.newRating - contest.oldRating,
                 currRating: contest.newRating,
             }));
-            console.log(ratingChanges);
             return ratingChanges;
         } else {
             return [];

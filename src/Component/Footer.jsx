@@ -2,31 +2,51 @@ import React from 'react';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import { Box } from '@mui/material';
 
 const Footer = () => {
     return (
-        <footer style={styles.footer}>
-            <p style={styles.text}>
-                &copy; {new Date().getFullYear()}
-                <span style={styles.brand} > VisualForces.</span>
-                All rights reserved.
-            </p>
-            <p style={styles.text}>
-                Developed with love ❤️ by <a style={styles.link} target="_blank" rel="noopener noreferrer" href='https://www.linkedin.com/in/akash-suklabaidya-435aa5227/'
-                >Akash</a>
-            </p>
-            <p  >
-                <a style={styles.linkIcon} href='https://www.instagram.com/akash_sb__/' target="_blank" rel="noopener noreferrer" >
-                    <InstagramIcon />
-                </a>
-                <a style={styles.linkIcon} href='https://www.facebook.com/akash.suklabaidya.31/' target="_blank" rel="noopener noreferrer" >
-                    <FacebookIcon />
-                </a>
-                <a style={styles.linkIcon} href='https://www.linkedin.com/in/akash-suklabaidya-435aa5227/' target="_blank" rel="noopener noreferrer" >
-                    <LinkedInIcon />
-                </a>
-            </p>
-        </footer>
+        <Box
+            sx={{
+                left: 0,
+                width: "100%",
+                height: "auto",
+                paddingTop: "3rem",
+                bottom: "80px",
+                // display: 'flex',
+                // minHeight: '100vh',
+                // flexDirection: 'column',
+                // justifyContent: 'space-between',
+
+            }}
+        >
+            <footer style={styles.footer}>
+                <p style={styles.text}>
+                    &copy; {new Date().getFullYear()}
+                    <span style={styles.brand} > VisualForces.</span>
+                    All rights reserved.
+                </p>
+                <p style={styles.text}>
+                    Developed with love ❤️ by <a style={styles.link} target="_blank" rel="noopener noreferrer" href='https://www.linkedin.com/in/akash-suklabaidya-435aa5227/'
+                    >Akash</a>
+                </p>
+                <p  >
+                    <a style={styles.linkIcon} href='https://www.instagram.com/akash_sb__/' target="_blank" rel="noopener noreferrer" >
+                        <InstagramIcon />
+                    </a>
+                    <a style={styles.linkIcon} href='https://www.facebook.com/akash.suklabaidya.31/' target="_blank" rel="noopener noreferrer" >
+                        <FacebookIcon />
+                    </a>
+                    <a style={styles.linkIcon} href='https://www.linkedin.com/in/akash-suklabaidya-435aa5227/' target="_blank" rel="noopener noreferrer" >
+                        <LinkedInIcon />
+                    </a>
+                    <a style={styles.linkIcon} href='https://github.com/akashsb18' target="_blank" rel="noopener noreferrer" >
+                        <GitHubIcon />
+                    </a>
+                </p>
+            </footer>
+        </Box>
     );
 };
 
@@ -57,3 +77,5 @@ const styles = {
 };
 
 export default Footer;
+
+

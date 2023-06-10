@@ -12,7 +12,6 @@ function ExportAll() {
     const { searchValue } = useContext(SearchContext);
     return (
         <div>
-            {/* <QuestionPerConChart /> */}
             <RatingChanges userName={searchValue} />
             <TypeChart userName={searchValue} />
             <RatingChart userName={searchValue} />
