@@ -13,11 +13,7 @@ const Footer = () => {
                 width: "100%",
                 height: "auto",
                 paddingTop: "3rem",
-                bottom: "80px",
-                // display: 'flex',
-                // minHeight: '100vh',
-                // flexDirection: 'column',
-                // justifyContent: 'space-between',
+                bottom: "80px"
 
             }}
         >

@@ -20,7 +20,6 @@ export default function UserProfile() {
     const currRank = pageData?.userInfo?.rank;
     const currRating = pageData?.userInfo?.rating;
 
-    console.log(pageData.userInfo);
 
     let color = 'gray';
     let colorCurr = 'gray';

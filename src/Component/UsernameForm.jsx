@@ -12,7 +12,6 @@ const UsernameForm = () => {
 
     const validateUsername = async () => {
         if (searchValue) {
-            // setTimeout(async () => {
             const url = `https://codeforces.com/api/user.info?handles=${searchValue}`;
             const response = await ApiService(url);
 
@@ -21,11 +20,10 @@ const UsernameForm = () => {
             } else {
                 toast.error('Invalid Username!');
                 setTimeout(() => {
-                    window.location.reload(); // Reload the page after 2 seconds
+                    window.location.reload();
                 }, 2000);
             }
 
-            // }, 2000);
         }
     };
 

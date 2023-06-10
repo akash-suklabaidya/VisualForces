@@ -26,19 +26,7 @@ async function fetchSubmissisonRate(searchValue) {
         console.error(error);
     }
 
-    // const countSubmissionsPerDay = (submissions) => {
-    //     const counts = {};
 
-    //     for (let i = 0; i < submissions.length; i++) {
-    //         const submission = submissions[i];
-    //         const submissionDate = new Date(submission.creationTimeSeconds * 1000);
-    //         const submissionDay = submissionDate.toDateString();
-
-    //         counts[submissionDay] = (counts[submissionDay] || 0) + 1;
-    //     }
-
-    //     return counts;
-    // };
 }
 
 function SubmissionPerDay() {
