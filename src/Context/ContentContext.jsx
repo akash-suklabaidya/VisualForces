@@ -6,6 +6,7 @@ import { fetchPosAndNegRatPerCon } from '../Content/Rating Distribution Stats/Po
 import { fetchRatingChanges } from '../Content/Context Participation Stats/RatingChangesPerCon';
 import { fetchSubmissionActivity } from '../Content/Context Participation Stats/QuestionsSolvedPerContest';
 import SearchContext from './SearchContext';
+import { ApiService } from '../API/ApiService';
 
 const ContentContext = createContext();
 
@@ -16,12 +17,24 @@ const ContentProvider = ({ children }) => {
 
     const delay = 2000; // Delay in milliseconds
 
+    const fetchValidate = async () => {
+        try {
+            setTimeout(async () => {
+                const url = `https://codeforces.com/api/user.info?handles=${searchValue}`;
+                const validate = await ApiService(url);
+                setPageData((prevPageData) => ({ ...prevPageData, validate }));
+            }, delay);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     const fetchUserInfo = async () => {
         try {
             setTimeout(async () => {
                 const userInfo = await fetchUserInfoData(searchValue);
                 setPageData((prevPageData) => ({ ...prevPageData, userInfo }));
-            }, delay);
+            }, delay * 2);
         } catch (error) {
             console.log(error);
         }
@@ -33,7 +46,7 @@ const ContentProvider = ({ children }) => {
             setTimeout(async () => {
                 const Type = await fetchTypeOfProblemsSolved(searchValue);
                 setPageData((prevPageData) => ({ ...prevPageData, Type }));
-            }, delay * 2);
+            }, delay * 3);
         } catch (error) {
             console.log(error);
         }
@@ -44,7 +57,7 @@ const ContentProvider = ({ children }) => {
             setTimeout(async () => {
                 const prob = await fetchSubmissionActivity(searchValue);
                 setPageData((prevPageData) => ({ ...prevPageData, prob }));
-            }, delay * 3);
+            }, delay * 4);
         } catch (error) {
             console.log(error)
         }
@@ -55,7 +68,7 @@ const ContentProvider = ({ children }) => {
             setTimeout(async () => {
                 const MaxIncDec = await fetchMaxRatIncDec(searchValue);
                 setPageData((prevPageData) => ({ ...prevPageData, MaxIncDec }));
-            }, delay * 4);
+            }, delay * 5);
         } catch (error) {
             console.log(error);
         }
@@ -66,7 +79,7 @@ const ContentProvider = ({ children }) => {
             setTimeout(async () => {
                 const PosAndNeg = await fetchPosAndNegRatPerCon(searchValue);
                 setPageData((prevPageData) => ({ ...prevPageData, PosAndNeg }));
-            }, delay * 5);
+            }, delay * 6);
         } catch (error) {
             console.log(error);
         }
@@ -78,13 +91,14 @@ const ContentProvider = ({ children }) => {
             setTimeout(async () => {
                 const ratChange = await fetchRatingChanges(searchValue);
                 setPageData((prevPageData) => ({ ...prevPageData, ratChange }));
-            }, delay * 6);
+            }, delay * 7);
         } catch (error) {
             console.log(error);
         }
     };
 
     useEffect(() => {
+        fetchValidate();
         fetchUserInfo();
         fetchProblemsType();
         fetchProbPerContest();

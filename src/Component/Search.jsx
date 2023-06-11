@@ -38,7 +38,7 @@ const AlertMessage = () => {
                 }}
             >
                 <Box sx={{ p: 2 }}>
-                    <Typography>Please try refreshing the page if the data doesn't appear.</Typography>
+                    <Typography>Please refresh the page and try again if the data doesn't appear.</Typography>
                 </Box>
             </Popover>
         </div>
