@@ -32,5 +32,5 @@ For any inquiries or feedback, please contact [your-email-address].
 
 ## Acknowledgements
 - [Codeforces](https://codeforces.com) for providing the API to access user data
-- [Codeforces Visualizer](https://codeforces-visualizer.vercel.app) for inspiration and ideas
+- [Codeforces Visualizer](https://cfviz.netlify.app/) for inspiration and ideas
 
