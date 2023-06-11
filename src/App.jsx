@@ -7,7 +7,6 @@ import Contact from './Component/Contact';
 import SplitScreen from './Content/UserProfile/Split';
 import ExportAll from './Charts/ExportAll';
 import Footer from './Component/Footer';
-import UsernameForm from './Component/UsernameForm';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
@@ -31,7 +30,6 @@ function Home() {
   return (
     <>
       <Search />
-      {/* <UsernameForm /> */}
       <SplitScreen />
       <ExportAll />
     </>

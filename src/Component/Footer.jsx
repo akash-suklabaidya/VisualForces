@@ -13,7 +13,8 @@ const Footer = () => {
                 width: "100%",
                 height: "auto",
                 paddingTop: "3rem",
-                bottom: "80px"
+                bottom: "80px",
+                minHeight: '100%'
 
             }}
         >
