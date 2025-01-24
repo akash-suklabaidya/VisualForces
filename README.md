@@ -1,19 +1,18 @@
 # Codeforces Visualization
 
 ## Description
-Codeforces Visualization is a web application that leverages the Codeforces API to collect user data and present it in the form of interactive charts. The project aims to provide a visual representation of Codeforces user statistics and performance. It takes inspiration from the Codeforces Visualizer website and adds its own unique features.
+Codeforces Visualization is a web application that utilizes the Codeforces API to gather user data and present it through interactive charts. The project aims to offer a visually engaging representation of Codeforces user statistics and performance. Drawing inspiration from the Codeforces Visualizer website, this project introduces unique features to enhance the user experience.
 
 ## Features
-- Search for Codeforces users and retrieve their profile information
-- Display user statistics using various types of charts (bar chart, pie chart, line chart)
-- Compare user performance and visualize the data side by side
-- Mobile-responsive design for easy access on different devices
+- Search for Codeforces users and retrieve detailed profile information
+- Display user statistics using various chart types (bar chart, pie chart, line chart)
+- Mobile-responsive design ensures compatibility across all device sizes
 
 ## Technologies Used
-- React: JavaScript library for building user interfaces
-- Material-UI: UI component library for React
-- Chart.js: JavaScript charting library for creating interactive charts
-- Codeforces API: API for accessing Codeforces user data
+- React: A JavaScript library for building dynamic and responsive user interfaces.
+- Material-UI: A UI component library for styling and design in React applications.
+- Chart.js: A robust charting library for creating interactive visualizations.
+- Codeforces API: Provides access to Codeforces user data and statistics.
 
 ## Getting Started
 1. Clone the repository: `git clone https://github.com/your-username/codeforces-visualization.git`
