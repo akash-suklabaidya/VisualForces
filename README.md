@@ -27,7 +27,7 @@ Contributions are welcome! If you find any bugs or have suggestions for improvem
 This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
 ## Contact
-For any inquiries or feedback, please contact [your-email-address].
+For any inquiries or feedback, please contact [suklabaidyaakash126@gmail.com].
 
 ## Acknowledgements
 - [Codeforces](https://codeforces.com) for providing the API to access user data
